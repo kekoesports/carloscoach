@@ -1,0 +1,8 @@
+{
+  "name": "carloscoach",
+  "version": "1.0.0",
+  "description": "Web Carlos Gómez — Entrenador Personal Elite",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=index.html"
+  }
+}
