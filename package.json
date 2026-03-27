@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Web Carlos Gómez — Entrenador Personal Elite",
   "scripts": {
-    "dev": "live-server --port=3000 --open=index.html"
+    "dev": "live-server --port=3000 --open=index.html",
+    "predeploy": "echo Deploying carloscoach to GitHub Pages",
+    "deploy": "gh-pages -d . --dotfiles"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
