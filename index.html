@@ -6,6 +6,7 @@
   <title>Carlos Gómez — Entrenador Personal Elite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060606'/%3E%3Ctext x='16' y='23' font-family='Arial Black,sans-serif' font-size='16' font-weight='900' fill='%23C9A84C' text-anchor='middle'%3EC%3C/text%3E%3Ctext x='16' y='31' font-family='Arial Black,sans-serif' font-size='8' font-weight='700' fill='%23E8C97A' text-anchor='middle' letter-spacing='1'%3EG%3C/text%3E%3C/svg%3E" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -48,9 +49,9 @@
     /* NAV */
     #nav{position:fixed;top:42px;left:0;right:0;z-index:900;padding:24px 64px;background:rgba(6,6,6,.88);backdrop-filter:blur(15px);display:flex;justify-content:space-between;align-items:center;transition:all .5s}
     #nav.scrolled{top:42px;padding:12px 64px;background:rgba(6,6,6,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-    .nav-logo-img{height:36px;object-fit:contain;cursor:pointer}
-    .nav-links{display:flex;gap:36px;align-items:center}
-    .nav-link{font-family:var(--font-c);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;transition:color .2s}
+    .nav-logo-img{height:52px;max-width:200px;object-fit:contain;cursor:pointer}
+    .nav-links{display:flex;gap:30px;align-items:center}
+    .nav-link{font-family:var(--font-c);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;transition:all .2s}
     .nav-link:hover{color:var(--gold)}
     .nav-icon{color:var(--muted);display:flex;transition:color .2s}
     .nav-icon:hover{color:var(--gold)}
@@ -64,6 +65,16 @@
     body{padding-top:102px}
     #oferta-bar p{font-family:var(--font-c);font-size:13px;letter-spacing:3px;color:var(--black);font-weight:700}
     #countdown-timer{font-family:var(--font-d);font-size:18px;letter-spacing:4px;color:var(--black)}
+
+    /* COOKIE BANNER */
+    #cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(12,12,12,.98);border-top:1px solid var(--gold);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--font-c);font-size:14px;color:var(--text)}
+    #cookie-banner p{margin:0;color:var(--text)}
+    #cookie-banner button{color:var(--black);background:var(--gold);border:none;font-weight:700;letter-spacing:1px;padding:10px 14px;border-radius:6px;cursor:pointer}
+    #cookie-banner a{color:var(--gold);text-decoration:underline;font-weight:600}
+    #policy-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;display:none;align-items:center;justify-content:center;padding:24px}
+    #policy-modal .modal-card{background:var(--dark2);border:1px solid var(--border);border-radius:16px;width:min(880px,100%);max-height:90vh;overflow:auto;padding:24px}
+    #policy-modal .modal-card h3{margin-top:0;color:var(--gold)}
+    #policy-modal .modal-close{position:absolute;top:14px;right:16px;color:var(--gold);background:none;border:none;font-size:18px;cursor:pointer}
 
     /* HERO */
     #hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
@@ -348,7 +359,8 @@
       #nav{padding:16px 24px!important}
       #nav.scrolled{padding:12px 24px!important}
       .section-pad{padding:100px 24px!important}
-      footer{padding:40px 24px!important}
+      footer>div:nth-child(2){grid-template-columns:1fr!important;padding:48px 24px 40px!important}
+      footer>div:nth-child(3)>div{padding:16px 24px!important}
       .about-badge{bottom:-16px;right:-16px}
       .cta-title{font-size:40px!important}
       .lead-form{flex-direction:column}
@@ -384,16 +396,19 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <img src="data:image/png;base64,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" alt="Carlos Gómez" class="nav-logo-img" onclick="scrollTo('hero')" style="cursor:pointer"/>
+  <svg class="nav-logo-img" viewBox="0 0 390 74" height="48" onclick="gotoSection('hero')" style="cursor:pointer;overflow:visible;flex-shrink:0">
+    <text y="52" font-family="'Bebas Neue',cursive" font-size="52" letter-spacing="3"><tspan fill="#FFFFFF">CARLOS </tspan><tspan fill="#E8C97A">GOMEZ</tspan></text>
+    <text x="3" y="70" font-family="'Barlow Condensed',sans-serif" font-size="12" fill="rgba(232,227,216,0.65)" letter-spacing="5" font-weight="400">ENTRENADOR PERSONAL</text>
+  </svg>
   <div class="nav-links">
-    <button class="nav-link" onclick="scrollTo('hero')">Inicio</button>
-    <button class="nav-link" onclick="scrollTo('about')">Sobre mí</button>
-    <button class="nav-link" onclick="scrollTo('services')">Servicios</button>
-    <button class="nav-link" onclick="scrollTo('herramientas')">Herramientas</button>
-    <button class="nav-link" onclick="scrollTo('videos')">Reels</button>
-    <button class="nav-link" onclick="scrollTo('testimonials')">Testimonios</button>
-    <button class="nav-link" onclick="scrollTo('calendar')">Reservar</button>
-    <button class="nav-link" onclick="scrollTo('faq')">FAQ</button>
+    <button class="nav-link" onclick="gotoSection('hero')">Inicio</button>
+    <button class="nav-link" onclick="gotoSection('about')">Sobre mí</button>
+    <button class="nav-link" onclick="gotoSection('services')">Servicios</button>
+    <button class="nav-link" onclick="gotoSection('herramientas')">Herramientas</button>
+    <button class="nav-link" onclick="gotoSection('videos')">Reels</button>
+    <button class="nav-link" onclick="gotoSection('testimonials')">Testimonios</button>
+    <button class="nav-link" onclick="gotoSection('calendar')">Reservar</button>
+    <button class="nav-link" onclick="gotoSection('faq')">FAQ</button>
     <a href="https://instagram.com/carlosgomezillan" target="_blank" class="nav-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
     </a>
@@ -405,13 +420,13 @@
 </nav>
 
 <div id="mob-menu">
-  <button class="mob-link" onclick="scrollTo('hero')">Inicio</button>
-  <button class="mob-link" onclick="scrollTo('about')">Sobre mí</button>
-  <button class="mob-link" onclick="scrollTo('services')">Servicios</button>
-  <button class="mob-link" onclick="scrollTo('herramientas')">Herramientas</button>
-  <button class="mob-link" onclick="scrollTo('videos')">Reels</button>
-  <button class="mob-link" onclick="scrollTo('calendar')">Reservar</button>
-  <button class="mob-link" onclick="scrollTo('faq')">FAQ</button>
+  <button class="mob-link" onclick="gotoSection('hero')">Inicio</button>
+  <button class="mob-link" onclick="gotoSection('about')">Sobre mí</button>
+  <button class="mob-link" onclick="gotoSection('services')">Servicios</button>
+  <button class="mob-link" onclick="gotoSection('herramientas')">Herramientas</button>
+  <button class="mob-link" onclick="gotoSection('videos')">Reels</button>
+  <button class="mob-link" onclick="gotoSection('calendar')">Reservar</button>
+  <button class="mob-link" onclick="gotoSection('faq')">FAQ</button>
 </div>
 
 <!-- HERO -->
@@ -427,7 +442,7 @@
       <h1 class="hero-title">TU<br>MEJOR<br><span class="gold">VERSIÓN</span></h1>
       <p class="hero-sub">Entrenamiento de precisión, nutrición estratégica y un acompañamiento real. <strong>Sin excusas. Solo resultados.</strong></p>
       <div class="hero-btns">
-        <button class="btn-gold" onclick="scrollTo('calendar')">RESERVAR SESIÓN</button>
+        <button class="btn-gold" onclick="gotoSection('calendar')">RESERVAR SESIÓN</button>
         <a href="https://wa.me/34600787452?text=Hola Carlos, quiero información" target="_blank" class="btn-outline">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WHATSAPP
@@ -565,7 +580,7 @@
       </div>
     </div>
   </div>
-  <p style="text-align:center;color:var(--muted);font-size:13px;font-family:var(--font-c);letter-spacing:2px;margin-top:32px">¿QUIERES UN PLAN PERSONALIZADO? <button onclick="scrollTo('calendar')" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--font-c);font-size:13px;letter-spacing:2px;font-weight:700">RESERVA AQUÍ →</button></p>
+  <p style="text-align:center;color:var(--muted);font-size:13px;font-family:var(--font-c);letter-spacing:2px;margin-top:32px">¿QUIERES UN PLAN PERSONALIZADO? <button onclick="gotoSection('calendar')" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--font-c);font-size:13px;letter-spacing:2px;font-weight:700">RESERVA AQUÍ →</button></p>
 </div></section>
 
 <!-- TESTIMONIALS -->
@@ -647,85 +662,73 @@
   <div class="reveal cal-intro">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px"><div class="section-line"></div><span class="section-tag">SISTEMA DE CITAS</span><div class="section-line"></div></div>
     <h2 class="section-title">RESERVA TU<br><span style="color:var(--gold)">SESIÓN</span></h2>
-    <p class="cal-sub">Elige el día y la hora. Te confirmo la cita directamente por WhatsApp y la añado a mi Google Calendar.</p>
+    <p class="cal-sub">Selecciona día y hora — la cita se añade a tu Google Calendar y recibes confirmación por WhatsApp.</p>
   </div>
   <div class="reveal cal-grid">
+    <!-- Calendario interactivo -->
     <div class="cal-widget">
       <div class="cal-nav">
-        <button class="cal-nav-btn" onclick="calPrev()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <span class="cal-month" id="cal-month"></span>
-        <button class="cal-nav-btn" onclick="calNext()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="cal-nav-btn" onclick="calPrev()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="cal-month" id="cal-month">—</span>
+        <button class="cal-nav-btn" onclick="calNext()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
       <div class="cal-days" id="cal-days"></div>
-      <p class="cal-hint">LUNES – VIERNES · FIN DE SEMANA BAJO CONSULTA</p>
+      <p class="cal-hint">Lun–Vie disponibles · Fines de semana bajo consulta vía WhatsApp</p>
     </div>
-    <div id="slots-panel" style="display:flex;align-items:center;justify-content:center">
-      <div class="slots-empty"><div style="font-size:36px">📅</div><span>SELECCIONA UN DÍA</span></div>
+    <!-- Panel de horarios -->
+    <div class="cal-widget" id="slots-panel">
+      <div class="slots-empty">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="color:rgba(201,168,76,.25)"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Selecciona un día disponible</span>
+        <span style="font-size:11px;letter-spacing:1px;color:rgba(122,117,112,.45)">APARECERÁN LOS HORARIOS</span>
+      </div>
     </div>
   </div>
-  <div class="gcal-note">
-    📅 <strong style="color:var(--text)">Google Calendar:</strong> Una vez confirmada la reserva por WhatsApp, Carlos añadirá la cita a tu Google Calendar con todos los detalles.<br>
-    Para conectar directamente con el calendario de Carlos, escríbele a <a href="https://wa.me/34600787452" target="_blank">+34 600 787 452</a> o usa el <strong style="color:var(--text)">botón verde</strong> en la esquina inferior izquierda.
-  </div>
-
-  <div class="gcal-widget">
-    <h3>Reserva directa en Google Calendar</h3>
-    <p>Haz clic para abrir la agenda de citas de Google Calendar (verifica que tu agenda está configurada y pública).</p>
-    <a class="btn-outline" href="https://calendar.google.com/calendar/u/0/r/week" target="_blank">Abrir Google Calendar</a>
-    <p style="margin-top:14px;font-size:14px;color:var(--muted);">Reemplaza el valor <code>src=TU_CALENDARIO_ID</code> con tu ID real en el iframe para mostrar tu agenda en esta página.</p>
-    <div style="margin-top:16px;min-height:340px;overflow:hidden;border-radius:16px;border:1px solid rgba(201,168,76,.2)">
-      <iframe title="Agenda de citas Google Calendar" src="https://calendar.google.com/calendar/embed?src=TU_CALENDARIO_ID%40group.calendar.google.com&ctz=Europe%2FMadrid" style="border:0" width="100%" height="340" frameborder="0" scrolling="no"></iframe>
-    </div>
+  <div class="gcal-note" style="margin-top:24px;">
+    ¿Prefieres contacto directo? <a href="https://wa.me/34600787452" target="_blank" style="color:var(--gold)">WhatsApp +34 600 787 452</a> — te confirmo la cita en menos de 24 h.
   </div>
 </div></section>
 
-<!-- LEGAL -->
-<section id="legal"><div class="section-pad" style="background:rgba(0,0,0,.4);border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2);">
-  <div class="reveal" style="text-align:center;margin-bottom:24px">
-    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px"><div class="section-line"></div><span class="section-tag">LEGAL</span><div class="section-line"></div></div>
-    <h2 class="section-title">POLÍTICAS<br><span style="color:var(--gold)">DE PRIVACIDAD Y COOKIES</span></h2>
-    <p style="max-width:760px;margin:16px auto;color:var(--muted)">Tu privacidad y conformidad legal son una prioridad. Aquí tienes acceso directo a los textos de aviso legal, privacidad y cookies.</p>
+<!-- COOKIE & PRIVACY MODELO -->
+<div id="policy-modal" onclick="closePolicyModal()">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closePolicyModal()">✕</button>
+    <h3>Política de Privacidad y Cookies</h3>
+    <p style="color:var(--muted);line-height:1.6;">En <strong>Carlos Gómez Coach</strong> usamos cookies propias para funcionamiento básico (navegación, sesión y preferencias). Con tu aceptación también podemos usar cookies externas para analítica (por ejemplo Google Analytics) y marketing. No compartimos datos con terceros salvo para servicios mínimos y herramientas de hosting.</p>
+    <p style="color:var(--muted);line-height:1.6;">Para rechazar las cookies de seguimiento, usa las opciones de tu navegador; sólo las cookies necesariamente técnicas se mantienen para que el sitio funcione. Para cualquier consulta, escribe a <a href="mailto:info@carlosgomezcoach.es" style="color:var(--gold);">info@carlosgomezcoach.es</a>.</p>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;"><button onclick="dismissPolicyModal()" style="background:var(--gold);border:none;color:var(--black);font-weight:700;padding:10px 14px;border-radius:6px;cursor:pointer;">Cerrar</button></div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
-    <article class="legal-card" style="background:rgba(24,24,24,.55);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;">
-      <h3>Política de Privacidad</h3>
-      <p>Tratamiento de datos personales, finalidades, derechos ARCO y base legal para el uso de tus datos.</p>
-      <a href="#privacy" class="btn-outline" style="margin-top:12px;display:inline-flex;">Ver política</a>
-    </article>
-    <article class="legal-card" style="background:rgba(24,24,24,.55);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;">
-      <h3>Política de Cookies</h3>
-      <p>Información completa de las cookies que se emplean en esta web y cómo desactivarlas.</p>
-      <a href="#cookies" class="btn-outline" style="margin-top:12px;display:inline-flex;">Ver política</a>
-    </article>
-    <article class="legal-card" style="background:rgba(24,24,24,.55);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;">
-      <h3>Aviso Legal</h3>
-      <p>Condiciones de uso, propiedad intelectual y exenciones de responsabilidad para usuarios y clientes.</p>
-      <a href="#legal-text" class="btn-outline" style="margin-top:12px;display:inline-flex;">Ver aviso</a>
-    </article>
-  </div>
-
-  <div id="privacy" style="margin-top:36px;line-height:1.6;color:var(--muted);">
-    <h4>Política de Privacidad</h4>
-    <p>En CARLOS GÓMEZ COACH tratamos tus datos con total confidencialidad. Recopilamos datos de contacto, objetivos y datos de salud en la medida necesaria para programar tus entrenamientos y citas. Usamos Google Forms, WhatsApp y el sistema de reservas para comunicación y gestión. Neutralizamos tu consentimiento y te informamos de tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad. Para más información contáctanos en <a href="mailto:info@carlosgomezcoach.es">info@carlosgomezcoach.es</a>.</p>
-  </div>
-  <div id="cookies" style="margin-top:24px;line-height:1.6;color:var(--muted);">
-    <h4>Política de Cookies</h4>
-    <p>Este sitio usa cookies propias y de terceros para funcionalidad, análisis y marketing. Puedes desactivarlas desde tu navegador leyendo la documentación de tu navegador (Chrome, Firefox, Safari). Para evitar cookies de terceros revisa los servicios de Google Analytics y redes sociales que están integrados. Con tu continuidad de navegación aceptas esta política.</p>
-  </div>
-  <div id="legal-text" style="margin-top:24px;line-height:1.6;color:var(--muted);">
-    <h4>Aviso Legal</h4>
-    <p>Todos los contenidos de carlosgomezcoach.es (textos, imágenes, diseño, scripts) son propiedad de CARLOS GÓMEZ COACH. No está permitido copiar, reproducir o redistribuir sin autorización expresa. El uso del sitio implica aceptación de limpieza de recomendaciones y no sustituye prescripción de profesionales de la salud; consultas médicas previas.</p>
-  </div>
-</div></section>
+</div>
 
 <!-- FAQ -->
 <section id="faq"><div class="section-pad">
   <div class="reveal" style="text-align:center;margin-bottom:0">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px"><div class="section-line"></div><span class="section-tag">PREGUNTAS FRECUENTES</span><div class="section-line"></div></div>
     <h2 class="section-title">RESUELVE<br><span style="color:var(--gold)">TUS DUDAS</span></h2>
+    <p style="color:var(--muted);font-size:15px;margin-top:16px;font-weight:300">Todo lo que necesitas saber antes de empezar — haz clic en cada pregunta.</p>
   </div>
   <div class="faq-list" id="faq-list"></div>
+  <div style="text-align:center;margin-top:48px">
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px">¿No encuentras lo que buscas? Escríbeme directamente.</p>
+    <a href="https://wa.me/34600787452?text=Hola Carlos, tengo una pregunta sobre tus servicios" target="_blank" class="btn-outline" style="display:inline-flex">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      PREGUNTA POR WHATSAPP
+    </a>
+  </div>
 </div></section>
+
+<div id="cookie-banner" style="display:none;">
+  <p>Usamos cookies esenciales y opcionales para mejorar tu experiencia. ¿Aceptas cookies de análisis?</p>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button onclick="setCookieConsent(true)">Aceptar</button>
+    <button onclick="setCookieConsent(false)" style="background:#333;color:#fff;">Rechazar</button>
+    <a href="#" onclick="openPolicyModal();return false;">Ver política</a>
+  </div>
+</div>
 
 <!-- BLOG TIPS -->
 <section id="tips"><div class="section-pad">
@@ -756,7 +759,7 @@
     <h2 class="cta-title">¿LISTO PARA EL <span style="color:var(--gold)">CAMBIO</span>?</h2>
     <p class="cta-sub">Primera sesión de valoración gratuita. Sin compromiso.</p>
     <div class="cta-btns">
-      <button class="btn-gold" style="font-size:16px;padding:18px 52px" onclick="scrollTo('calendar')">
+      <button class="btn-gold" style="font-size:16px;padding:18px 52px" onclick="gotoSection('calendar')">
         📅 RESERVAR AHORA
       </button>
       <a href="https://wa.me/34600787452?text=Hola Carlos, quiero mi primera sesión gratuita" target="_blank" class="btn-outline" style="font-size:16px;padding:17px 40px">
@@ -769,40 +772,100 @@
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;padding:56px 64px;background:rgba(0,0,0,.8);border-top:1px solid rgba(201,168,76,.3);">
+<footer style="background:var(--black);border-top:1px solid rgba(201,168,76,.15)">
+  <!-- Franja dorada decorativa -->
+  <div style="height:3px;background:linear-gradient(90deg,transparent,var(--gold),rgba(201,168,76,.3),var(--gold),transparent)"></div>
+
+  <!-- Cuerpo principal del footer -->
+  <div style="max-width:1300px;margin:0 auto;padding:72px 64px 56px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;align-items:start">
+
+    <!-- Columna marca -->
     <div>
-      <h3 style="font-size:18px;color:var(--gold);letter-spacing:1px;margin-bottom:12px">CARLOS GÓMEZ COACH</h3>
-      <p style="color:var(--muted);line-height:1.7">Entrenamiento personalizado y asesoramiento 360° para tu mejor versión. Sesiones presenciales y online.</p>
-      <p style="margin-top:14px;color:var(--muted);font-size:14px">Tel: <a href="tel:+34600787452" style="color:var(--text)">+34 600 787 452</a><br>Email: <a href="mailto:info@carlosgomezcoach.es" style="color:var(--text)">info@carlosgomezcoach.es</a></p>
-    </div>
-    <div>
-      <h4 style="color:var(--gold);margin-bottom:12px">Enlaces</h4>
-      <ul style="list-style:none;padding:0;margin:0;color:var(--muted);line-height:2">
-        <li><a href="#hero" style="color:var(--muted);text-decoration:none;">Inicio</a></li>
-        <li><a href="#services" style="color:var(--muted);text-decoration:none;">Servicios</a></li>
-        <li><a href="#calendar" style="color:var(--muted);text-decoration:none;">Reservar</a></li>
-        <li><a href="#legal" style="color:var(--muted);text-decoration:none;">Legal</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="color:var(--gold);margin-bottom:12px">Legal</h4>
-      <ul style="list-style:none;padding:0;margin:0;color:var(--muted);line-height:2">
-        <li><a href="#privacy" style="color:var(--muted);text-decoration:none;">Política de Privacidad</a></li>
-        <li><a href="#cookies" style="color:var(--muted);text-decoration:none;">Política de Cookies</a></li>
-        <li><a href="#legal-text" style="color:var(--muted);text-decoration:none;">Aviso Legal</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="color:var(--gold);margin-bottom:12px">Sígueme</h4>
-      <div style="display:flex;flex-direction:column;gap:8px;color:var(--muted);">
-        <a href="https://instagram.com/carlosgomezillan" target="_blank" style="color:var(--muted);text-decoration:none;">Instagram</a>
-        <a href="https://wa.me/34600787452" target="_blank" style="color:var(--muted);text-decoration:none;">WhatsApp</a>
+      <svg viewBox="0 0 390 74" height="50" style="display:block;margin-bottom:20px;overflow:visible">
+        <text y="52" font-family="'Bebas Neue',cursive" font-size="52" letter-spacing="3"><tspan fill="#FFFFFF">CARLOS </tspan><tspan fill="#E8C97A">GOMEZ</tspan></text>
+        <text x="3" y="70" font-family="'Barlow Condensed',sans-serif" font-size="12" fill="rgba(232,227,216,0.55)" letter-spacing="5" font-weight="400">ENTRENADOR PERSONAL</text>
+      </svg>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8;max-width:300px;margin-bottom:28px">Entrenamiento personalizado y metodología científica para transformar tu cuerpo y tu mentalidad. Presencial en Elche/Alicante y online para toda España.</p>
+      <!-- Social icons -->
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="https://instagram.com/carlosgomezillan" target="_blank" title="Instagram" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,.2)';this.style.color='var(--muted)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://wa.me/34600787452" target="_blank" title="WhatsApp" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,.2)';this.style.color='var(--muted)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="mailto:info@carlosgomezcoach.es" title="Email" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,.2)';this.style.color='var(--muted)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="tel:+34600787452" title="Teléfono" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,.2)';this.style.color='var(--muted)'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        </a>
       </div>
     </div>
+
+    <!-- Columna navegación -->
+    <div>
+      <h4 style="font-family:var(--font-c);font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:24px;font-weight:700">NAVEGACIÓN</h4>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+        <li><button onclick="gotoSection('hero')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;transition:color .2s;text-align:left" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Inicio</button></li>
+        <li><button onclick="gotoSection('about')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;transition:color .2s;text-align:left" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Sobre mí</button></li>
+        <li><button onclick="gotoSection('services')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;transition:color .2s;text-align:left" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Servicios</button></li>
+        <li><button onclick="gotoSection('testimonials')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;transition:color .2s;text-align:left" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Testimonios</button></li>
+        <li><button onclick="gotoSection('faq')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;transition:color .2s;text-align:left" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">FAQ</button></li>
+        <li><button onclick="gotoSection('calendar')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-family:var(--font-c);font-size:14px;letter-spacing:1px;padding:0;font-weight:700;text-align:left">Reservar Sesión →</button></li>
+      </ul>
+    </div>
+
+    <!-- Columna servicios -->
+    <div>
+      <h4 style="font-family:var(--font-c);font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:24px;font-weight:700">SERVICIOS</h4>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+        <li><a href="https://wa.me/34600787452?text=Hola Carlos, quiero info sobre entrenamiento personal" target="_blank" style="color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Entrenamiento Personal</a></li>
+        <li><a href="https://wa.me/34600787452?text=Hola Carlos, quiero info sobre nutrición" target="_blank" style="color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Planes Nutricionales</a></li>
+        <li><a href="https://wa.me/34600787452?text=Hola Carlos, quiero info sobre coaching online" target="_blank" style="color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Coaching Online</a></li>
+        <li><a href="https://wa.me/34600787452?text=Hola Carlos, quiero info sobre el programa de 12 semanas" target="_blank" style="color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Transformación 12 Semanas</a></li>
+        <li><a href="https://wa.me/34600787452?text=Hola Carlos, quiero info sobre la sesión de valoración gratuita" target="_blank" style="color:var(--muted);font-family:var(--font-c);font-size:14px;letter-spacing:1px;transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Sesión Valoración Gratuita</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna contacto -->
+    <div>
+      <h4 style="font-family:var(--font-c);font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:24px;font-weight:700">CONTACTO</h4>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:18px">
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          <a href="tel:+34600787452" style="color:var(--muted);font-size:14px;text-decoration:none;line-height:1.4;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">+34 600 787 452</a>
+        </li>
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@carlosgomezcoach.es" style="color:var(--muted);font-size:14px;text-decoration:none;line-height:1.4;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">info@carlosgomezcoach.es</a>
+        </li>
+        <li style="display:flex;gap:12px;align-items:flex-start">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="color:var(--muted);font-size:14px;line-height:1.6">Elche / Alicante<br><span style="font-size:12px;letter-spacing:1px">Online · Toda España</span></span>
+        </li>
+        <li style="margin-top:8px">
+          <a href="https://wa.me/34600787452" target="_blank" class="btn-gold" style="display:inline-flex;gap:8px;font-size:13px;padding:12px 24px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            ESCRIBIR AHORA
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div style="text-align:center;padding:18px 20px;font-size:13px;color:var(--muted);border-top:1px solid rgba(201,168,76,.2);">
-    © <span id="current-year">2026</span> CARLOS GÓMEZ COACH · Todos los derechos reservados · <a href="#privacy" style="color:var(--gold);text-decoration:none;">Privacidad</a> · <a href="#cookies" style="color:var(--gold);text-decoration:none;">Cookies</a> · <a href="#legal-text" style="color:var(--gold);text-decoration:none;">Aviso legal</a>
+
+  <!-- Barra inferior -->
+  <div style="border-top:1px solid rgba(201,168,76,.1)">
+    <div style="max-width:1300px;margin:0 auto;padding:20px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="color:rgba(122,117,112,.45);font-family:var(--font-c);font-size:12px;letter-spacing:1.5px">© <span id="current-year">2026</span> CARLOS GÓMEZ COACH · TODOS LOS DERECHOS RESERVADOS</p>
+      <div style="display:flex;gap:20px;align-items:center">
+        <button onclick="openPolicyModal()" style="background:none;border:none;color:rgba(122,117,112,.5);cursor:pointer;font-family:var(--font-c);font-size:11px;letter-spacing:2px;transition:color .2s;padding:0" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(122,117,112,.5)'">PRIVACIDAD</button>
+        <span style="color:rgba(201,168,76,.15)">·</span>
+        <button onclick="openPolicyModal()" style="background:none;border:none;color:rgba(122,117,112,.5);cursor:pointer;font-family:var(--font-c);font-size:11px;letter-spacing:2px;transition:color .2s;padding:0" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(122,117,112,.5)'">COOKIES</button>
+        <span style="color:rgba(201,168,76,.15)">·</span>
+        <button onclick="openPolicyModal()" style="background:none;border:none;color:rgba(122,117,112,.5);cursor:pointer;font-family:var(--font-c);font-size:11px;letter-spacing:2px;transition:color .2s;padding:0" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(122,117,112,.5)'">AVISO LEGAL</button>
+      </div>
+    </div>
   </div>
 </footer>
 <script>document.getElementById('current-year').textContent=new Date().getFullYear();</script>
@@ -887,7 +950,12 @@ window.addEventListener('scroll', () => {
 });
 
 // ── HELPERS ──
-function scrollTo(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); closeMob(); }
+function gotoSection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  closeMob();
+}
 
 // ── MOBILE MENU ──
 let mobOpen = false;
@@ -992,10 +1060,23 @@ function renderSlots() {
   });
   html += '</div>';
   if(selectedSlot) {
-    const msg = encodeURIComponent(`Hola Carlos! Quiero reservar sesión el ${dayStr} a las ${selectedSlot}. ¿Está disponible?`);
-    html += `<a href="https://wa.me/${WA}?text=${msg}" target="_blank" class="btn-gold" style="width:100%;margin-top:20px;justify-content:center;display:inline-flex">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      CONFIRMAR POR WHATSAPP</a>`;
+    const [hStr] = selectedSlot.split(':');
+    const h = parseInt(hStr);
+    const startD = new Date(selectedDate); startD.setHours(h, 0, 0, 0);
+    const endD = new Date(startD.getTime() + 60*60*1000);
+    const fmt = d => d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+'0000';
+    const gcalUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit?'+new URLSearchParams({text:'Sesión con Carlos Gómez Coach',dates:fmt(startD)+'/'+fmt(endD),details:'Entrenamiento personal con Carlos Gómez. Confirma por WhatsApp al +34 600 787 452.',location:'Elche/Alicante o Online (según preferencia)',add:GCALENDAR_ID});
+    const msg = encodeURIComponent('Hola Carlos! Quiero reservar sesión el '+dayStr+' a las '+selectedSlot+'. ¿Está disponible?');
+    html += `<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+      <a href="${gcalUrl}" target="_blank" class="btn-gold" style="width:100%;justify-content:center;display:inline-flex;gap:10px;font-size:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        AÑADIR A GOOGLE CALENDAR
+      </a>
+      <a href="https://wa.me/${WA}?text=${msg}" target="_blank" class="btn-outline" style="width:100%;justify-content:center;display:inline-flex;gap:10px;font-size:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        CONFIRMAR POR WHATSAPP
+      </a>
+    </div>`;
   }
   html += '</div>';
   document.getElementById('slots-panel').innerHTML = html;
@@ -1020,6 +1101,7 @@ function toggleFAQ(i) {
   if(!isOpen) el.classList.add('open');
 }
 renderFAQ();
+toggleFAQ(0);
 
 // ── IMC CALCULATOR ──
 function calcIMC() {
@@ -1136,6 +1218,38 @@ async function sendMsg(text) {
   chatLoading = false;
   renderChatMsgs();
 }
+
+// ── GOOGLE CALENDAR BOOKING (requiere consentimiento de cookies) ──
+const GCALENDAR_ID = 'carlosgomezcoach@gmail.com';
+const GCALENDAR_TITLE = 'Sesión con Carlos Gómez - Fitness Coaching';
+
+function hasCookieConsent() {
+  return localStorage.getItem('cookieConsent') === 'accepted';
+}
+
+function openGoogleCalendarBooking() {
+  if (!hasCookieConsent()) {
+    document.getElementById('cookie-banner').style.display = 'flex';
+    return;
+  }
+
+  const base = 'https://calendar.google.com/calendar/u/0/r/eventedit';
+  const params = new URLSearchParams({
+    text: GCALENDAR_TITLE,
+    details: 'Reserva tu sesión personalizada con Carlos Gómez. Confirma tu horario en la página y recibe un enlace de Google Meet si es virtual.',
+    location: 'Online / Presencial (según tu preferencia)',
+    src: GCALENDAR_ID,
+  });
+  const url = `${base}?${params.toString()}`;
+  window.open(url, '_blank');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const bookBtn = document.getElementById('book-calendar-btn');
+  if (bookBtn) bookBtn.addEventListener('click', openGoogleCalendarBooking);
+
+});
+
 </script>
 </body>
 </html>
